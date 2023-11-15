@@ -17,7 +17,8 @@ def test():
 
 print("test1")
 
-
+def enemy():
+	print("enemy")
 mytrigger = trigger(100,100, test, 0,0)
 mytrigger.printsome()
 
