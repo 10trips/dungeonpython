@@ -20,3 +20,5 @@ print("test1")
 
 mytrigger = trigger(100,100, test, 0,0)
 mytrigger.printsome()
+
+#Balls
