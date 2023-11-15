@@ -1,3 +1,8 @@
+import turtle
+
+wn = turtle.Screen()
+wn.bgpic("background.png")
+
 class trigger:
     def __init__(self, x, y, fun, draw, color):
         
@@ -9,7 +14,8 @@ class trigger:
     def printsome(self):
         print(self.x,self.y)
         self.myfun()
-        if draw == True:
+        if self.draw == True:
+            pass
             #draw with color
 
 def test():
@@ -23,3 +29,4 @@ mytrigger = trigger(100,100, test, 0,0)
 mytrigger.printsome()
 
 #Balls
+wn.mainloop()
