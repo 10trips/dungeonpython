@@ -1,5 +1,8 @@
 import turtle
 
+wn = turtle.Screen()
+
+
 player = turtle.Turtle
 player.up()
 player.speed(0)
@@ -48,16 +51,46 @@ class trigger:
 
             drawer.ht()
         def collision():
-            if ((leo.xcor() > self.x1-self.buffer) and (leo.xcor() < self.x2+self.buffer) and (leo.ycor() > self.y1-self.buffer) and (leo.ycor() < self.y2+self.buffer)):
+            if ((player.xcor() > self.x1-self.buffer) and (player.xcor() < self.x2+self.buffer) and (player.ycor() > self.y1-self.buffer) and (player.ycor() < self.y2+self.buffer)):
+                self.fun()
                 
 
 def test():
     print("world")
 
-print("test1")
+def up():
+    #checkobjects()
+    player.setheading(90)
+    player.goto(player.xcor(), player.ycor()+10)
 
+def down():
+    #checkobjects()
+    player.setheading(270)
+    player.goto(player.xcor(), player.ycor()-10)
 
-mytrigger = trigger(100,100, test, 0,0)
-mytrigger.printsome()
+def right():
+    #checkobjects()
+    player.setheading(0)
+    player.goto(player.xcor()+10, player.ycor())
+
+def left():
+    #checkobjects()
+    player.setheading(180)
+    player.goto(player.xcor()-10, player.ycor())
+
+def on():
+    wn.onkey(up, "w")
+    wn.onkey(down, "s")
+    wn.onkey(right, "d")
+    wn.onkey(left, "a")
+def off():
+    wn.onkey(None, "w")
+    wn.onkey(None, "s")
+    wn.onkey(None, "d")
+    wn.onkey(None, "a")
+
+wn.listen()
+
+wn.mainloop()
 
 #Balls
