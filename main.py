@@ -44,10 +44,11 @@ class trigger:
             self.draw = True
             self.color = "black"
 
-        self.x1 = x2
-        self.y1 = y2
+        self.x1 = x1
+        self.y1 = y1
         self.x2 = x2
         self.y2 = y2
+        self.fun = fun
         
         if self.draw == True:
             drawer.goto(x1,y2)
@@ -65,16 +66,15 @@ class trigger:
             drawer.end_fill()
 
             drawer.ht()
-        def collision():
-            if ((player.xcor() > self.x1-self.buffer) and (player.xcor() < self.x2+self.buffer) and (player.ycor() > self.y1-self.buffer) and (player.ycor() < self.y2+self.buffer)):
-                self.fun()
-                
+    def collision(self):
+        if ((player.xcor() > self.x1-self.bufer) and (player.xcor() < self.x2+self.bufer) and (player.ycor() > self.y1-self.bufer) and (player.ycor() < self.y2+self.bufer)):
+            print("2")
+            self.fun()
 
 def checktriggers():
     global level,triggers1,triggers2,triggers3
     if level == 1:
         for t in triggers1:
-            print(t)
             t.collision() #this doesnt work fix
 
 def up():
@@ -111,9 +111,7 @@ def off():
 def wallcollision():
     player.undo()
 
-wall = trigger(0,0,100,100,wallcollision)
-
-triggers1.append(wall)
+triggers1.append(trigger(0,0,100,100,wallcollision,15,True,"red"))
 
 
 wn.listen()
