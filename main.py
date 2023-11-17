@@ -73,9 +73,9 @@ class trigger:
 def checktriggers():
     global level,triggers1,triggers2,triggers3
     if level == 1:
-        for trigger in triggers1:
-            print(triggers1)
-            trigger.collision() #this doesnt work fix
+        for t in triggers1:
+            print(t)
+            t.collision() #this doesnt work fix
 
 def up():
     checktriggers()
