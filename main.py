@@ -3,6 +3,7 @@ import turtle
 wn = turtle.Screen()
 
 
+
 level = 1
 triggers1 = []
 triggers2 = []
@@ -16,6 +17,8 @@ player.speed(0)
 drawer = turtle.Turtle()
 drawer.up()
 drawer.speed(0)
+
+wn.bgpic("background.png")
 
 class trigger:
     #def __init__(self, x1,y1, x2,y2, fun, draw, color, bufer):
@@ -50,13 +53,13 @@ class trigger:
         self.y2 = y2
         self.fun = fun
         
+
         if self.draw == True:
             drawer.goto(x1,y2)
         
             # begin render
             drawer.color(self.color)
             drawer.begin_fill()
-            
 
             drawer.goto(x1,y2) #top left
             drawer.goto(x2,y2) #top right
@@ -70,6 +73,7 @@ class trigger:
         if ((player.xcor() > self.x1-self.bufer) and (player.xcor() < self.x2+self.bufer) and (player.ycor() > self.y1-self.bufer) and (player.ycor() < self.y2+self.bufer)):
             print("2")
             self.fun()
+
 
 def checktriggers():
     global level,triggers1,triggers2,triggers3
