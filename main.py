@@ -6,6 +6,8 @@ wn = turtle.Screen()
 player = turtle.Turtle()
 player.up()
 player.speed(0)
+wn.register_shape('knight.gif')
+player.shape('knight.gif')
 #add player turtle image
 
 drawer = turtle.Turtle()
@@ -51,13 +53,10 @@ class trigger:
             drawer.end_fill()
 
             drawer.ht()
-        def collision():
-            if ((player.xcor() > self.x1-self.buffer) and (player.xcor() < self.x2+self.buffer) and (player.ycor() > self.y1-self.buffer) and (player.ycor() < self.y2+self.buffer)):
-                self.fun()
+    def collision(self):
+        if ((player.xcor() > self.x1-self.buffer) and (player.xcor() < self.x2+self.buffer) and (player.ycor() > self.y1-self.buffer) and (player.ycor() < self.y2+self.buffer)):
+            self.fun()
                 
-
-def test():
-    print("world")
 
 def up():
     #checkobjects()
@@ -90,6 +89,8 @@ def off():
     wn.onkey(None, "d")
     wn.onkey(None, "a")
 
+
+on()
 
 wn.listen()
 
