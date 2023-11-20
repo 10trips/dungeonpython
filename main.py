@@ -59,6 +59,7 @@ class trigger:
         self.y1 = y1 * mapscale
         self.x2 = x2 * mapscale
         self.y2 = y2 * mapscale
+
         self.fun = fun
         
 
@@ -76,9 +77,10 @@ class trigger:
             drawer.goto(self.x1,self.y1) #bottom left
 
             drawer.end_fill()
-            
         drawer.ht()
-        
+
+            #drawer.ht()
+            
     def collision(self):
         print(self.x1)
         if ((player.xcor() > self.x1-self.bufer) and (player.xcor() < self.x2+self.bufer) and (player.ycor() > self.y1-self.bufer) and (player.ycor() < self.y2+self.bufer)):
@@ -146,6 +148,7 @@ def off():
 def wallcollision():
     player.undo()
 
+
 def initlevel1():
     triggers1.append(trigger(1,1,3,2,wallcollision,15,True,"red"))
 
@@ -158,6 +161,7 @@ wn.listen()
 initlevel1()
 
 drawboarders()
+
 
 on()
 wn.listen()
