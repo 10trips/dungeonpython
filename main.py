@@ -75,9 +75,31 @@ class trigger:
 
 def checktriggers():
     global level,triggers1,triggers2,triggers3
+
+    #Checks the map boarders to prevent glitching outside the map
+    if player.xcor() > 490:
+        player.goto(490, player.ycor())
+    if player.xcor() < -490:
+        player.goto(-490, player.ycor())
+    if player.ycor() > 390:
+        player.goto(player.xcor(), 390)
+    if player.ycor() < -390:
+        player.goto(player.xcor(), -390)
+
     if level == 1:
         for t in triggers1:
             t.collision()
+
+def drawboarders():
+    drawer.color("black")
+    drawer.goto(-500, -400)
+    drawer.down()
+    drawer.pensize(5)
+    drawer.goto(-500, 400)
+    drawer.goto(500, 400)
+    drawer.goto(500, -400)
+    drawer.goto(-500, -400)
+    drawer.up()
 
 def up():
     checktriggers()
@@ -115,7 +137,7 @@ def wallcollision():
 
 triggers1.append(trigger(0,0,100,100,wallcollision,15,True,"red"))
 
-
+drawboarders()
 on()
 wn.listen()
 wn.mainloop()
