@@ -8,6 +8,8 @@ triggers1 = []
 triggers2 = []
 triggers3 = []
 
+mapscale = 50
+
 player = turtle.Turtle()
 player.up()
 player.speed(0)
@@ -44,23 +46,26 @@ class trigger:
             self.draw = True
             self.color = "black"
 
-        self.x1 = x2
-        self.y1 = y2
-        self.x2 = x2
-        self.y2 = y2
+        self.x1 = x2 * mapscale
+        self.y1 = y2 * mapscale
+        self.x2 = x2 * mapscale
+        self.y2 = y2 * mapscale
+        
+        self.fun = fun
         
         if self.draw == True:
-            drawer.goto(x1,y2)
+       	    print("dfdfs")
+            drawer.goto(self.x1,self.y2)
         
             # begin render
             drawer.color(self.color)
             drawer.begin_fill()
             
 
-            drawer.goto(x1,y2) #top left
-            drawer.goto(x2,y2) #top right
-            drawer.goto(x2,y1) #bottom right
-            drawer.goto(x1,y1) #bottom left
+            drawer.goto(self.x1,self.y2) #top left
+            drawer.goto(self.x2,self.y2) #top right
+            drawer.goto(self.x2,self.y1) #bottom right
+            drawer.goto(self.x1,self.y1) #bottom left
 
             drawer.end_fill()
 
@@ -131,11 +136,10 @@ def off():
 def wallcollision():
     player.undo()
 
-wall = trigger(0,0,100,100,wallcollision)
 
-triggers1.append(wall)
+triggers1.append(trigger(1,1,2,2,wallcollision,15, True, "black"))
 
-drawboarders()
+#drawboarders()
 on()
 wn.listen()
 wn.mainloop()
