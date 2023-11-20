@@ -3,12 +3,12 @@ import turtle
 wn = turtle.Screen()
 
 
-player = turtle.Turtle
+player = turtle.Turtle()
 player.up()
 player.speed(0)
 #add player turtle image
 
-drawer = turtle.Turtle
+drawer = turtle.Turtle()
 drawer.up()
 drawer.speed(0)
 
