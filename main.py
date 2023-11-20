@@ -44,11 +44,10 @@ class trigger:
             self.draw = True
             self.color = "black"
 
-        self.x1 = x1
-        self.y1 = y1
+        self.x1 = x2
+        self.y1 = y2
         self.x2 = x2
         self.y2 = y2
-        self.fun = fun
         
         if self.draw == True:
             drawer.goto(x1,y2)
@@ -132,7 +131,9 @@ def off():
 def wallcollision():
     player.undo()
 
-triggers1.append(trigger(0,0,100,100,wallcollision,15,True,"red"))
+wall = trigger(0,0,100,100,wallcollision)
+
+triggers1.append(wall)
 
 drawboarders()
 on()
