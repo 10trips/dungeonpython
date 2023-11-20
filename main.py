@@ -142,6 +142,7 @@ def off():
     wn.onkey(None, "a")
 
 def wallcollision():
+    global player
     player.undo()
 
 def updateGhost():
@@ -149,7 +150,7 @@ def updateGhost():
     ghost.setheading(ghost.towards(player))
     ghost.forward(10)
 
-triggers1.append(trigger(0,0,100,100,wallcollision,15,True,"red"))
+triggers1.append(trigger(50,50,100,100,wallcollision,15,True,"red"))
 
 ghost.goto(1000,1000)
 
