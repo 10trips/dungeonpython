@@ -46,14 +46,15 @@ class trigger:
             self.draw = True
             self.color = "black"
 
-        self.x1 = x2 * mapscale
-        self.y1 = y2 * mapscale
+        self.x1 = x1 * mapscale
+        self.y1 = y1 * mapscale
         self.x2 = x2 * mapscale
         self.y2 = y2 * mapscale
         
         self.fun = fun
         
         if self.draw == True:
+            drawer.st()
        	    print("dfdfs")
             drawer.goto(self.x1,self.y2)
         
@@ -69,7 +70,7 @@ class trigger:
 
             drawer.end_fill()
 
-            drawer.ht()
+            #drawer.ht()
     def collision(self):
         if ((player.xcor() > self.x1-self.bufer) and (player.xcor() < self.x2+self.bufer) and (player.ycor() > self.y1-self.bufer) and (player.ycor() < self.y2+self.bufer)):
             self.fun()
