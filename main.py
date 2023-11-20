@@ -3,7 +3,6 @@ import turtle
 wn = turtle.Screen()
 
 
-
 level = 1
 triggers1 = []
 triggers2 = []
@@ -14,11 +13,14 @@ mapscale = 50
 player = turtle.Turtle()
 player.up()
 player.speed(0)
+wn.register_shape('knight.gif')
+player.shape('knight.gif')
 #add player turtle image
 
 drawer = turtle.Turtle()
 drawer.up()
 drawer.speed(0)
+
 
 wn.bgpic("background.png")
 
@@ -74,20 +76,41 @@ class trigger:
             drawer.goto(self.x1,self.y1) #bottom left
 
             drawer.end_fill()
-
+            
         drawer.ht()
+        
     def collision(self):
         print(self.x1)
         if ((player.xcor() > self.x1-self.bufer) and (player.xcor() < self.x2+self.bufer) and (player.ycor() > self.y1-self.bufer) and (player.ycor() < self.y2+self.bufer)):
-            
             self.fun()
-
 
 def checktriggers():
     global level,triggers1,triggers2,triggers3
+
+    #Checks the map boarders to prevent glitching outside the map
+    if player.xcor() > 490:
+        player.goto(490, player.ycor())
+    if player.xcor() < -490:
+        player.goto(-490, player.ycor())
+    if player.ycor() > 390:
+        player.goto(player.xcor(), 390)
+    if player.ycor() < -390:
+        player.goto(player.xcor(), -390)
+
     if level == 1:
         for t in triggers1:
-            t.collision() #this doesnt work fix
+            t.collision()
+
+def drawboarders():
+    drawer.color("black")
+    drawer.goto(-500, -400)
+    drawer.down()
+    drawer.pensize(5)
+    drawer.goto(-500, 400)
+    drawer.goto(500, 400)
+    drawer.goto(500, -400)
+    drawer.goto(-500, -400)
+    drawer.up()
 
 def up():
     checktriggers()
@@ -127,11 +150,15 @@ def initlevel1():
     triggers1.append(trigger(1,1,3,2,wallcollision,15,True,"red"))
 
 
+
 wn.listen()
 
 #start main code
 
 initlevel1()
-on()
 
+drawboarders()
+
+on()
+wn.listen()
 wn.mainloop()
