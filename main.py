@@ -11,6 +11,7 @@ player.speed(0)
 drawer = turtle.Turtle()
 drawer.up()
 drawer.speed(0)
+wn.bgpic("background.png")
 
 class trigger:
     def __init__(self, x1,y1, x2,y2, fun, draw, color, bufer):
@@ -95,3 +96,4 @@ wn.listen()
 wn.mainloop()
 
 #Balls
+wn.mainloop()
