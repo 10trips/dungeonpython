@@ -8,12 +8,19 @@ triggers1 = []
 triggers2 = []
 triggers3 = []
 
+#add player turtle image
 player = turtle.Turtle()
 player.up()
 player.speed(0)
 wn.register_shape('knight.gif')
 player.shape('knight.gif')
-#add player turtle image
+
+#Add ghost
+ghost = turtle.Turtle()
+ghost.up()
+ghost.speed(0)
+wn.register_shape('ghost.gif')
+ghost.shape('ghost.gif')
 
 drawer = turtle.Turtle()
 drawer.up()
@@ -76,6 +83,7 @@ class trigger:
 def checktriggers():
     global level,triggers1,triggers2,triggers3
 
+    updateGhost()
     #Checks the map boarders to prevent glitching outside the map
     if player.xcor() > 490:
         player.goto(490, player.ycor())
@@ -91,6 +99,7 @@ def checktriggers():
             t.collision()
 
 def drawboarders():
+    global drawer
     drawer.color("black")
     drawer.goto(-500, -400)
     drawer.down()
@@ -102,23 +111,23 @@ def drawboarders():
     drawer.up()
 
 def up():
+    global player
     checktriggers()
-    player.setheading(90)
     player.goto(player.xcor(), player.ycor()+10)
 
 def down():
+    global player
     checktriggers()
-    player.setheading(270)
     player.goto(player.xcor(), player.ycor()-10)
 
 def right():
+    global player
     checktriggers()
-    player.setheading(0)
     player.goto(player.xcor()+10, player.ycor())
 
 def left():
+    global player
     checktriggers()
-    player.setheading(180)
     player.goto(player.xcor()-10, player.ycor())
 
 def on():
@@ -135,7 +144,14 @@ def off():
 def wallcollision():
     player.undo()
 
+def updateGhost():
+    global ghost
+    ghost.setheading(ghost.towards(player))
+    ghost.forward(10)
+
 triggers1.append(trigger(0,0,100,100,wallcollision,15,True,"red"))
+
+ghost.goto(1000,1000)
 
 drawboarders()
 on()
