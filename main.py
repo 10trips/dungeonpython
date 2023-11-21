@@ -8,14 +8,23 @@ triggers1 = []
 triggers2 = []
 triggers3 = []
 
+
 mapscale = 50
+
+#add player turtle image
 
 player = turtle.Turtle()
 player.up()
 player.speed(0)
 wn.register_shape('knight.gif')
 player.shape('knight.gif')
-#add player turtle image
+
+#Add ghost
+ghost = turtle.Turtle()
+ghost.up()
+ghost.speed(0)
+wn.register_shape('ghost.gif')
+ghost.shape('ghost.gif')
 
 drawer = turtle.Turtle()
 drawer.up()
@@ -82,13 +91,14 @@ class trigger:
             #drawer.ht()
             
     def collision(self):
-        print(self.x1)
+        
         if ((player.xcor() > self.x1-self.bufer) and (player.xcor() < self.x2+self.bufer) and (player.ycor() > self.y1-self.bufer) and (player.ycor() < self.y2+self.bufer)):
             self.fun()
 
 def checktriggers():
     global level,triggers1,triggers2,triggers3
 
+    updateGhost()
     #Checks the map boarders to prevent glitching outside the map
     if player.xcor() > 490:
         player.goto(490, player.ycor())
@@ -104,6 +114,7 @@ def checktriggers():
             t.collision()
 
 def drawboarders():
+    global drawer
     drawer.color("black")
     drawer.goto(-500, -400)
     drawer.down()
@@ -115,23 +126,23 @@ def drawboarders():
     drawer.up()
 
 def up():
+    global player
     checktriggers()
-    player.setheading(90)
     player.goto(player.xcor(), player.ycor()+10)
 
 def down():
+    global player
     checktriggers()
-    player.setheading(270)
     player.goto(player.xcor(), player.ycor()-10)
 
 def right():
+    global player
     checktriggers()
-    player.setheading(0)
     player.goto(player.xcor()+10, player.ycor())
 
 def left():
+    global player
     checktriggers()
-    player.setheading(180)
     player.goto(player.xcor()-10, player.ycor())
 
 def on():
@@ -146,7 +157,9 @@ def off():
     wn.onkey(None, "a")
 
 def wallcollision():
+    global player
     player.undo()
+
 
 
 def initlevel1():
@@ -154,11 +167,20 @@ def initlevel1():
 
 
 
-wn.listen()
 
 #start main code
 
 initlevel1()
+
+def updateGhost():
+    global ghost
+    ghost.setheading(ghost.towards(player))
+    ghost.forward(10)
+
+triggers1.append(trigger(50,50,100,100,wallcollision,15,True,"red"))
+
+ghost.goto(1000,1000)
+
 
 drawboarders()
 
