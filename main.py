@@ -1,3 +1,4 @@
+#created by Ethan Freckleton and Alex Larsen 11/21/2023
 import turtle
 
 wn = turtle.Screen()
@@ -7,6 +8,9 @@ level = 1
 triggers1 = []
 triggers2 = []
 triggers3 = []
+
+inventory = []
+
 
 
 mapscale = 50
@@ -163,7 +167,13 @@ def wallcollision():
 
 
 def initlevel1():
+
+    drawer.clear()
+    
+    drawboarders()
+    level = 1
     triggers1.append(trigger(1,1,3,2,wallcollision,15,True,"red"))
+    #make keys
 
 
 
@@ -177,12 +187,13 @@ def updateGhost():
     ghost.setheading(ghost.towards(player))
     ghost.forward(10)
 
-triggers1.append(trigger(50,50,100,100,wallcollision,15,True,"red"))
+#triggers1.append(trigger(50,50,100,100,wallcollision,15,True,"red"))
 
 ghost.goto(1000,1000)
 
 
 drawboarders()
+
 
 
 on()
