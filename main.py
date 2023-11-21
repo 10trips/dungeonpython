@@ -13,7 +13,7 @@ inventory = []
 
 
 
-mapscale = 50
+mapscale = 50 # 50 default
 
 #add player turtle image
 
@@ -104,14 +104,14 @@ def checktriggers():
 
     updateGhost()
     #Checks the map boarders to prevent glitching outside the map
-    if player.xcor() > 490:
-        player.goto(490, player.ycor())
-    if player.xcor() < -490:
-        player.goto(-490, player.ycor())
-    if player.ycor() > 390:
-        player.goto(player.xcor(), 390)
-    if player.ycor() < -390:
-        player.goto(player.xcor(), -390)
+    if player.xcor() > 9.8*mapscale:
+        player.goto(9.8*mapscale, player.ycor())
+    if player.xcor() < -9.8*mapscale:
+        player.goto(-9.8*mapscale, player.ycor())
+    if player.ycor() > 7.8*mapscale:
+        player.goto(player.xcor(), 7.8*mapscale)
+    if player.ycor() < -7.8*mapscale:
+        player.goto(player.xcor(), -7.8*mapscale)
 
     if level == 1:
         for t in triggers1:
@@ -120,13 +120,13 @@ def checktriggers():
 def drawboarders():
     global drawer
     drawer.color("black")
-    drawer.goto(-500, -400)
+    drawer.goto(-10*mapscale, -8*mapscale)
     drawer.down()
     drawer.pensize(5)
-    drawer.goto(-500, 400)
-    drawer.goto(500, 400)
-    drawer.goto(500, -400)
-    drawer.goto(-500, -400)
+    drawer.goto(-10*mapscale, 8*mapscale)
+    drawer.goto(10*mapscale, 8*mapscale)
+    drawer.goto(10*mapscale, -8*mapscale)
+    drawer.goto(-10*mapscale, -8*mapscale)
     drawer.up()
 
 def up():
@@ -185,11 +185,11 @@ initlevel1()
 def updateGhost():
     global ghost
     ghost.setheading(ghost.towards(player))
-    ghost.forward(10)
+    ghost.forward(6)
 
 #triggers1.append(trigger(50,50,100,100,wallcollision,15,True,"red"))
 
-ghost.goto(1000,1000)
+ghost.goto(100,100)
 
 
 drawboarders()
