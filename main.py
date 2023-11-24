@@ -169,7 +169,10 @@ def off():
 def wallcollision():
     global player
     player.undo()
-
+def addkey():
+    global inventory
+    inventory.append("key")
+    
 
 
 def initlevel1():
@@ -181,7 +184,9 @@ def initlevel1():
     triggers1.append(trigger(1,1,3,2,wallcollision,15,True,"red"))
     #make keys
     key1.goto(-100,100)
-
+    #key trigger
+    triggers1.append(trigger(-2,2,-2,2,addkey,20,False,"red"))
+    #remove the damn trigger so you cant infinitly pick up keys
 
 
 
