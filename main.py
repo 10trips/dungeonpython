@@ -20,22 +20,28 @@ mapscale = 50 # 50 default
 player = turtle.Turtle()
 player.up()
 player.speed(0)
-wn.register_shape('knight.gif')
-player.shape('knight.gif')
+#wn.register_shape('knight.gif')these are commented out because my computer cant do it
+#player.shape('knight.gif')these are commented out because my computer cant do it
 
 #Add ghost
 ghost = turtle.Turtle()
 ghost.up()
 ghost.speed(0)
-wn.register_shape('ghost.gif')
-ghost.shape('ghost.gif')
+#wn.register_shape('ghost.gif')these are commented out because my computer cant do it
+#ghost.shape('ghost.gif') these are commented out because my computer cant do it
 
 drawer = turtle.Turtle()
 drawer.up()
 drawer.speed(0)
 
+#wn.register_shape('key.gif')these are commented out because my computer cant do it
+#ghost.shape('key.gif') these are commented out because my computer cant do it
+key1 = turtle.Turtle()
+key1.up()
+key1.speed(0)
 
-wn.bgpic("background.png")
+
+#wn.bgpic("background.png")these are commented out because my computer cant do it
 
 class trigger:
     #def __init__(self, x1,y1, x2,y2, fun, draw, color, bufer):
@@ -174,6 +180,7 @@ def initlevel1():
     level = 1
     triggers1.append(trigger(1,1,3,2,wallcollision,15,True,"red"))
     #make keys
+    key1.goto(-100,100)
 
 
 
