@@ -181,7 +181,11 @@ def initlevel1():
     
     drawboarders()
     level = 1
-    triggers1.append(trigger(1,1,3,2,wallcollision,15,True,"red"))
+    triggers1.append(trigger(-10,5,2,6,wallcollision,15,True,"black"))
+    triggers1.append(trigger(1,1,2,5,wallcollision,15,True,"black"))
+    triggers1.append(trigger(-10,5,2,6,wallcollision,15,True,"black"))
+    triggers1.append(trigger(-10,5,2,6,wallcollision,15,True,"black"))
+
     #make keys
     key1.goto(-100,100)
     #key trigger
