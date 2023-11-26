@@ -212,6 +212,14 @@ def damage():
     health -= 1
     resetlevel1()
 
+def gate():
+    global inventory, player, drawer
+    if len(inventory) > 0:
+        inventory.pop(-1)
+        print(inventory)
+    else:
+        player.undo()
+
 def updateGhost():
     global ghost
     ghost.setheading(ghost.towards(player))
@@ -281,20 +289,16 @@ def initlevel1():
     triggers1.append(trigger(3,3,4,8,wallcollision,15,True,"black"))
     triggers1.append(trigger(-3,-1,6,0,wallcollision,15,True,"black"))
     triggers1.append(trigger(5,0,6,5,wallcollision,15,True,"black"))
-
     triggers1.append(trigger(8,3,10,8,wallcollision,15,True,"black"))
-
     triggers1.append(trigger(-9,-5,-8,4,wallcollision,15,True,"black"))
     triggers1.append(trigger(-10,-1,-9,0,wallcollision,15,True,"black"))
     triggers1.append(trigger(-7,-8,-6,-4,wallcollision,15,True,"black"))
-
     triggers1.append(trigger(0,-5,8,-4,wallcollision,15,True,"black"))
-    #sum lava
-    triggers1.append(trigger(5,-2,10,0,lava,15,True,"orange"))
-
     triggers1.append(trigger(-1,1,2,2,wallcollision,15,True,"black"))
     triggers1.append(trigger(-1,1,2,2,wallcollision,15,True,"black"))
-    triggers1.append(trigger(8,-8,10,-2,initlevel2,0,True,"green"))
+    triggers1.append(trigger(5,-2,10,0,lava,15,True,"orange"))# lava
+    triggers1.append(trigger(8,-8,10,-2,initlevel2,0,True,"green"))# end
+    triggers1.append(trigger(4,-3,5,-2,gate,0,True,"yellow"))# gate
 
     resetlevel1()
     resetHearts()
@@ -302,8 +306,10 @@ def resetlevel1():
     global mapscale, inventory
     inventory.clear()
     key1.goto(8*mapscale, 1*mapscale)
-    key2.goto(-8*mapscale, 7*mapscale)
-    key3.goto(-7*mapscale, 7*mapscale)
+    key2.goto(11*mapscale, 11*mapscale)
+    key3.goto(11*mapscale, 11*mapscale)
+    key2.ht()
+    key3.ht()
     player.goto(-9*mapscale, 7*mapscale)
     ghost.goto(-9*mapscale,-7*mapscale)
 
