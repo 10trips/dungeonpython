@@ -44,6 +44,22 @@ key1.shape('key.gif')
 key2.shape('key.gif')
 key3.shape('key.gif')
 
+heart1 = turtle.Turtle()
+heart1.up()
+heart1.speed(0)
+heart2 = turtle.Turtle()
+heart2.up()
+heart2.speed(0)
+heart3 = turtle.Turtle()
+heart3.up()
+heart3.speed(0)
+hearts = [heart1, heart2, heart2]
+
+wn.register_shape('heart.gif')
+heart1.shape('heart.gif')
+heart2.shape('heart.gif')
+heart3.shape('heart.gif')
+
 wn.bgpic("background.png")
 
 class trigger:
@@ -128,8 +144,7 @@ def checktriggers():
     for key in keys:
         if player.distance(key) < 20 and key not in inventory:
             inventory.append(key)
-            key.goto(10*mapscale - 50*len(inventory), 9*mapscale)
-
+            key.goto(10*mapscale - mapscale*len(inventory), 9*mapscale)
 
 def drawboarders():
     global drawer
@@ -179,12 +194,38 @@ def wallcollision():
     player.undo()
 
 def lava():
-    print("death")
-    
+    damage()
+
+def damage():
+    global health
+    if health == 3:
+        heart3.ht()
+    elif health == 2:
+        heart2.ht()
+    elif health == 1:
+        heart1.ht()
+    health -= 1
+    resetlevel1()
+
+def updateGhost():
+    global ghost
+    ghost.setheading(ghost.towards(player))
+    ghost.forward(6)
+    if ghost.distance(player) < 20:
+        damage()
+
+def resetHearts():
+    heart1.goto(-9 *mapscale, 9*mapscale)
+    heart2.goto(-8 *mapscale, 9*mapscale)
+    heart3.goto(-7 *mapscale, 9*mapscale)
+    heart1.st()
+    heart2.st()
+    heart3.st()
+
 def initlevel1():
-    global mapscale
+    global mapscale, health, level
     drawer.clear()
-    
+    health = 3
     drawboarders()
     level = 1
     triggers1.append(trigger(-10,5,2,6,wallcollision,15,True,"black"))
@@ -204,21 +245,22 @@ def initlevel1():
     triggers1.append(trigger(5,-2,10,0,lava,15,True,"orange"))
 
     triggers1.append(trigger(-1,1,2,2,wallcollision,15,True,"black"))
-    #make keys
+
+    resetlevel1()
+    resetHearts()
+
+def resetlevel1():
+    global mapscale, inventory
+    inventory.clear()
     key1.goto(8*mapscale, 1*mapscale)
     key2.goto(-8*mapscale, 7*mapscale)
     key3.goto(-7*mapscale, 7*mapscale)
     player.goto(-9*mapscale, 7*mapscale)
     ghost.goto(-9*mapscale,-7*mapscale)
 
-def updateGhost():
-    global ghost
-    ghost.setheading(ghost.towards(player))
-    ghost.forward(6)
-
 #start main code
+on()
 initlevel1()
 
-on()
 wn.listen()
 wn.mainloop()
