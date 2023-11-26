@@ -188,11 +188,20 @@ def initlevel1():
     triggers1.append(trigger(3,3,4,8,wallcollision,15,True,"black"))
     triggers1.append(trigger(-3,-1,6,0,wallcollision,15,True,"black"))
     triggers1.append(trigger(5,0,6,5,wallcollision,15,True,"black"))
+
+    triggers1.append(trigger(8,3,10,8,wallcollision,15,True,"black"))
+
+    triggers1.append(trigger(-9,-5,-8,4,wallcollision,15,True,"black"))
+    triggers1.append(trigger(-10,-1,-9,0,wallcollision,15,True,"black"))
+    triggers1.append(trigger(-7,-8,-6,-4,wallcollision,15,True,"black"))
+
+    triggers1.append(trigger(0,-5,8,-4,wallcollision,15,True,"black"))
     #sum lava
     triggers1.append(trigger(5,-2,10,0,lava,15,True,"orange"))
 
+    triggers1.append(trigger(-1,1,2,2,wallcollision,15,True,"black"))
     #make keys
-    key1.goto(-100,100)
+    key1.goto(400,50)
     #key trigger
     triggers1.append(trigger(-2,2,-2,2,addkey,20,False,"red"))
     #remove the damn trigger so you cant infinitly pick up keys
