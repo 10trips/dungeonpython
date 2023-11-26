@@ -251,6 +251,7 @@ def resetScreen(message, command):
     drawer.color("red")
     drawer.goto(-4 * mapscale, 3 * mapscale)
     drawer.write(message, font=("Verdana", 50, "normal"))
+    #drawer.write("You Died", font=("Verdana", 50, "normal"))
     drawer.goto(-4 * mapscale, -3 * mapscale)
     drawer.write(command, font=("Verdana", 36, "normal"))
     drawer.ht()
@@ -262,7 +263,9 @@ def startScreen():
     resetScreen("Medievel Maze Game", "Press 'r' to Begin")
 
 def winScreen():
+
     resetScreen("You Win", "Press 'r' to Restart")
+    #drawer.write("Press 'r' to Restart", font=("Verdana", 36, "normal"))
 
 def levelScreen():
     global health
@@ -289,12 +292,21 @@ def initlevel1():
     triggers1.append(trigger(3,3,4,8,wallcollision,15,True,"black"))
     triggers1.append(trigger(-3,-1,6,0,wallcollision,15,True,"black"))
     triggers1.append(trigger(5,0,6,5,wallcollision,15,True,"black"))
+
     triggers1.append(trigger(8,3,10,8,wallcollision,15,True,"black"))
+
     triggers1.append(trigger(-9,-5,-8,4,wallcollision,15,True,"black"))
     triggers1.append(trigger(-10,-1,-9,0,wallcollision,15,True,"black"))
     triggers1.append(trigger(-7,-8,-6,-4,wallcollision,15,True,"black"))
+    triggers1.append(trigger(-3,-7,-2,-2,wallcollision,15,True,"black"))
+
     triggers1.append(trigger(0,-5,8,-4,wallcollision,15,True,"black"))
+    triggers1.append(trigger(3,-6,4,-2,wallcollision,15,True,"black"))
+    #sum lava
+    triggers1.append(trigger(5,-2,10,0,lava,15,True,"orange"))
+
     triggers1.append(trigger(-1,1,2,2,wallcollision,15,True,"black"))
+
     triggers1.append(trigger(-1,1,2,2,wallcollision,15,True,"black"))
     triggers1.append(trigger(5,-2,10,0,lava,15,True,"orange"))# lava
     triggers1.append(trigger(8,-8,10,-2,initlevel2,0,True,"green"))# end
@@ -302,6 +314,8 @@ def initlevel1():
 
     resetlevel1()
     resetHearts()
+
+
 def resetlevel1():
     global mapscale, inventory
     inventory.clear()
@@ -312,11 +326,13 @@ def resetlevel1():
     key3.ht()
     player.goto(-9*mapscale, 7*mapscale)
     ghost.goto(-9*mapscale,-7*mapscale)
-
 def initlevel2():
     levelScreen()
+
 #start main code
 startScreen()
+on()
+initlevel1()
 
 wn.listen()
 wn.mainloop()
