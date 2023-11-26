@@ -328,12 +328,12 @@ def resetlevel1():
     player.goto(-9*mapscale, 7*mapscale)
     ghost.goto(-9*mapscale,-7*mapscale)
 def initlevel2():
+    global level
+    level = 2
     levelScreen()
-    for object in triggers1:
-        del object
+    
 #start main code
 startScreen()
-on()
 initlevel1()
 
 wn.listen()
