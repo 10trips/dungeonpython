@@ -3,45 +3,48 @@ import turtle
 
 wn = turtle.Screen()
 
-
 level = 1
 triggers1 = []
 triggers2 = []
 triggers3 = []
-
 inventory = []
-
-
-
 mapscale = 50 # 50 default
 
 #add player turtle image
-
 player = turtle.Turtle()
 player.up()
 player.speed(0)
-#wn.register_shape('knight.gif')these are commented out because my computer cant do it
-#player.shape('knight.gif')these are commented out because my computer cant do it
+wn.register_shape('knight.gif')
+player.shape('knight.gif')
 
 #Add ghost
 ghost = turtle.Turtle()
 ghost.up()
 ghost.speed(0)
-#wn.register_shape('ghost.gif')these are commented out because my computer cant do it
-#ghost.shape('ghost.gif') these are commented out because my computer cant do it
+wn.register_shape('ghost.gif')
+ghost.shape('ghost.gif')
 
 drawer = turtle.Turtle()
 drawer.up()
 drawer.speed(0)
 
-#wn.register_shape('key.gif')these are commented out because my computer cant do it
-#ghost.shape('key.gif') these are commented out because my computer cant do it
 key1 = turtle.Turtle()
 key1.up()
 key1.speed(0)
+key2 = turtle.Turtle()
+key2.up()
+key2.speed(0)
+key3 = turtle.Turtle()
+key3.up()
+key3.speed(0)
+keys = [key1, key2, key3]
 
+wn.register_shape('key.gif')
+key1.shape('key.gif')
+key2.shape('key.gif')
+key3.shape('key.gif')
 
-#wn.bgpic("background.png")these are commented out because my computer cant do it
+wn.bgpic("background.png")
 
 class trigger:
     #def __init__(self, x1,y1, x2,y2, fun, draw, color, bufer):
@@ -106,7 +109,7 @@ class trigger:
             self.fun()
 
 def checktriggers():
-    global level,triggers1,triggers2,triggers3
+    global level,triggers1,triggers2,triggers3, player, keys, inventory
 
     updateGhost()
     #Checks the map boarders to prevent glitching outside the map
@@ -122,6 +125,11 @@ def checktriggers():
     if level == 1:
         for t in triggers1:
             t.collision()
+    for key in keys:
+        if player.distance(key) < 20 and key not in inventory:
+            inventory.append(key)
+            key.goto(10*mapscale - 50*len(inventory), 9*mapscale)
+
 
 def drawboarders():
     global drawer
@@ -169,16 +177,12 @@ def off():
 def wallcollision():
     global player
     player.undo()
-def addkey():
-    global inventory
-    inventory.append("key")
+
 def lava():
     print("death")
     
-
-
 def initlevel1():
-
+    global mapscale
     drawer.clear()
     
     drawboarders()
@@ -201,30 +205,19 @@ def initlevel1():
 
     triggers1.append(trigger(-1,1,2,2,wallcollision,15,True,"black"))
     #make keys
-    key1.goto(400,50)
-    #key trigger
-    triggers1.append(trigger(-2,2,-2,2,addkey,20,False,"red"))
-    #remove the damn trigger so you cant infinitly pick up keys
-
-
-
-#start main code
-
-initlevel1()
+    key1.goto(8*mapscale, 1*mapscale)
+    key2.goto(-8*mapscale, 7*mapscale)
+    key3.goto(-7*mapscale, 7*mapscale)
+    player.goto(-9*mapscale, 7*mapscale)
+    ghost.goto(-9*mapscale,-7*mapscale)
 
 def updateGhost():
     global ghost
     ghost.setheading(ghost.towards(player))
     ghost.forward(6)
 
-#triggers1.append(trigger(50,50,100,100,wallcollision,15,True,"red"))
-
-ghost.goto(100,100)
-
-
-drawboarders()
-
-
+#start main code
+initlevel1()
 
 on()
 wn.listen()
