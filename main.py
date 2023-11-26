@@ -172,6 +172,8 @@ def wallcollision():
 def addkey():
     global inventory
     inventory.append("key")
+def lava():
+    print("death")
     
 
 
@@ -183,8 +185,11 @@ def initlevel1():
     level = 1
     triggers1.append(trigger(-10,5,2,6,wallcollision,15,True,"black"))
     triggers1.append(trigger(1,1,2,5,wallcollision,15,True,"black"))
-    triggers1.append(trigger(-10,5,2,6,wallcollision,15,True,"black"))
-    triggers1.append(trigger(-10,5,2,6,wallcollision,15,True,"black"))
+    triggers1.append(trigger(3,3,4,8,wallcollision,15,True,"black"))
+    triggers1.append(trigger(-3,-1,6,0,wallcollision,15,True,"black"))
+    triggers1.append(trigger(5,0,6,5,wallcollision,15,True,"black"))
+    #sum lava
+    triggers1.append(trigger(5,-2,10,0,lava,15,True,"orange"))
 
     #make keys
     key1.goto(-100,100)
