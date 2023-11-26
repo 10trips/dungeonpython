@@ -10,12 +10,6 @@ triggers3 = []
 inventory = []
 mapscale = 50 # 50 default
 
-#add player turtle image
-player = turtle.Turtle()
-player.up()
-player.speed(0)
-wn.register_shape('knight.gif')
-player.shape('knight.gif')
 
 #Add ghost
 ghost = turtle.Turtle()
@@ -27,6 +21,13 @@ ghost.shape('ghost.gif')
 drawer = turtle.Turtle()
 drawer.up()
 drawer.speed(0)
+
+#add player turtle image
+player = turtle.Turtle()
+player.up()
+player.speed(0)
+wn.register_shape('knight.gif')
+player.shape('knight.gif')
 
 key1 = turtle.Turtle()
 key1.up()
@@ -60,7 +61,7 @@ heart1.shape('heart.gif')
 heart2.shape('heart.gif')
 heart3.shape('heart.gif')
 
-wn.bgpic("background.png")
+wn.bgcolor("lightblue")
 
 class trigger:
     #def __init__(self, x1,y1, x2,y2, fun, draw, color, bufer):
@@ -129,14 +130,14 @@ def checktriggers():
 
     updateGhost()
     #Checks the map boarders to prevent glitching outside the map
-    if player.xcor() > 9.8*mapscale:
-        player.goto(9.8*mapscale, player.ycor())
-    if player.xcor() < -9.8*mapscale:
-        player.goto(-9.8*mapscale, player.ycor())
-    if player.ycor() > 7.8*mapscale:
-        player.goto(player.xcor(), 7.8*mapscale)
-    if player.ycor() < -7.8*mapscale:
-        player.goto(player.xcor(), -7.8*mapscale)
+    if player.xcor() > 9.6*mapscale:
+        player.goto(9.6*mapscale, player.ycor())
+    if player.xcor() < -9.6*mapscale:
+        player.goto(-9.6*mapscale, player.ycor())
+    if player.ycor() > 7.6*mapscale:
+        player.goto(player.xcor(), 7.6*mapscale)
+    if player.ycor() < -7.6*mapscale:
+        player.goto(player.xcor(), -7.6*mapscale)
 
     if level == 1:
         for t in triggers1:
@@ -183,11 +184,13 @@ def on():
     wn.onkey(down, "s")
     wn.onkey(right, "d")
     wn.onkey(left, "a")
+    wn.onkey(None, "r")
 def off():
     wn.onkey(None, "w")
     wn.onkey(None, "s")
     wn.onkey(None, "d")
     wn.onkey(None, "a")
+    wn.onkey(initlevel1, "r")
 
 def wallcollision():
     global player
@@ -204,6 +207,8 @@ def damage():
         heart2.ht()
     elif health == 1:
         heart1.ht()
+    else:
+        deathScreen()
     health -= 1
     resetlevel1()
 
@@ -222,12 +227,44 @@ def resetHearts():
     heart2.st()
     heart3.st()
 
-def initlevel1():
-    global mapscale, health, level
+def deathScreen():
+    global drawer, mapscale
+    off()
     drawer.clear()
-    health = 3
+    wn.bgpic("nopic")
+    player.ht()
+    ghost.ht()
+    key1.ht()
+    key2.ht()
+    key3.ht()
+    heart1.ht()
+    heart2.ht()
+    heart3.ht()
+    drawer.color("red")
+    drawer.goto(-4 * mapscale, 3 * mapscale)
+    drawer.write("You Died", font=("Verdana", 50, "normal"))
+    drawer.goto(-4 * mapscale, -3 * mapscale)
+    drawer.write("Press 'r' to Restart", font=("Verdana", 36, "normal"))
+
+def levelScreen():
+    global health
     drawboarders()
+    wn.bgpic("background.png")
+    heart1.st()
+    heart2.st()
+    heart3.st()
+    player.st()
+    ghost.st()
+    key1.st()
+    key2.st()
+    key3.st()
+    health = 0
+
+def initlevel1():
+    global mapscale, level
+    drawer.clear()
     level = 1
+    levelScreen()
     triggers1.append(trigger(-10,5,2,6,wallcollision,15,True,"black"))
     triggers1.append(trigger(1,1,2,5,wallcollision,15,True,"black"))
     triggers1.append(trigger(3,3,4,8,wallcollision,15,True,"black"))
@@ -248,7 +285,6 @@ def initlevel1():
 
     resetlevel1()
     resetHearts()
-
 def resetlevel1():
     global mapscale, inventory
     inventory.clear()
@@ -257,6 +293,7 @@ def resetlevel1():
     key3.goto(-7*mapscale, 7*mapscale)
     player.goto(-9*mapscale, 7*mapscale)
     ghost.goto(-9*mapscale,-7*mapscale)
+
 
 #start main code
 on()
