@@ -10,7 +10,6 @@ triggers3 = []
 inventory = []
 mapscale = 50 # 50 default
 
-
 #Add ghost
 ghost = turtle.Turtle()
 ghost.up()
@@ -236,7 +235,7 @@ def resetHearts():
     heart3.st()
 
 def resetScreen(message, command):
-    global drawer, mapscale
+    global drawer, mapscale, level
     off()
     drawer.clear()
     wn.bgpic("nopic")
@@ -248,6 +247,12 @@ def resetScreen(message, command):
     heart1.ht()
     heart2.ht()
     heart3.ht()
+    for object in triggers1:
+        del object
+    for object in triggers2:
+        del object
+    for object in triggers3:
+        del object
     drawer.color("red")
     drawer.goto(-4 * mapscale, 3 * mapscale)
     drawer.write(message, font=("Verdana", 50, "normal"))
@@ -269,15 +274,13 @@ def levelScreen():
     drawer.clear()
     drawboarders()
     wn.bgpic("background.png")
-    heart1.st()
-    heart2.st()
-    heart3.st()
     player.st()
     ghost.st()
     key1.st()
     key2.st()
     key3.st()
     health = 3
+    resetHearts()
     on()
 
 def initlevel1():
@@ -301,7 +304,7 @@ def initlevel1():
     triggers1.append(trigger(4,-3,5,-2,gate,0,True,"yellow"))# gate
 
     resetlevel1()
-    resetHearts()
+
 def resetlevel1():
     global mapscale, inventory
     inventory.clear()
@@ -315,6 +318,8 @@ def resetlevel1():
 
 def initlevel2():
     levelScreen()
+    for object in triggers1:
+        del object
 #start main code
 startScreen()
 
