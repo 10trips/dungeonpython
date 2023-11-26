@@ -227,7 +227,7 @@ def resetHearts():
     heart2.st()
     heart3.st()
 
-def deathScreen():
+def resetScreen(message, command):
     global drawer, mapscale
     off()
     drawer.clear()
@@ -242,12 +242,23 @@ def deathScreen():
     heart3.ht()
     drawer.color("red")
     drawer.goto(-4 * mapscale, 3 * mapscale)
-    drawer.write("You Died", font=("Verdana", 50, "normal"))
+    drawer.write(message, font=("Verdana", 50, "normal"))
     drawer.goto(-4 * mapscale, -3 * mapscale)
-    drawer.write("Press 'r' to Restart", font=("Verdana", 36, "normal"))
+    drawer.write(command, font=("Verdana", 36, "normal"))
+    drawer.ht()
+
+def deathScreen():
+    resetScreen("You Died", "Press 'r' to Restart")
+
+def startScreen():
+    resetScreen("Medievel Maze Game", "Press 'r' to Begin")
+
+def winScreen():
+    resetScreen("You Win", "Press 'r' to Restart")
 
 def levelScreen():
     global health
+    drawer.clear()
     drawboarders()
     wn.bgpic("background.png")
     heart1.st()
@@ -258,11 +269,11 @@ def levelScreen():
     key1.st()
     key2.st()
     key3.st()
-    health = 0
+    health = 3
+    on()
 
 def initlevel1():
     global mapscale, level
-    drawer.clear()
     level = 1
     levelScreen()
     triggers1.append(trigger(-10,5,2,6,wallcollision,15,True,"black"))
@@ -282,6 +293,8 @@ def initlevel1():
     triggers1.append(trigger(5,-2,10,0,lava,15,True,"orange"))
 
     triggers1.append(trigger(-1,1,2,2,wallcollision,15,True,"black"))
+    triggers1.append(trigger(-1,1,2,2,wallcollision,15,True,"black"))
+    triggers1.append(trigger(8,-8,10,-2,initlevel2,0,True,"green"))
 
     resetlevel1()
     resetHearts()
@@ -294,10 +307,10 @@ def resetlevel1():
     player.goto(-9*mapscale, 7*mapscale)
     ghost.goto(-9*mapscale,-7*mapscale)
 
-
+def initlevel2():
+    levelScreen()
 #start main code
-on()
-initlevel1()
+startScreen()
 
 wn.listen()
 wn.mainloop()
