@@ -24,6 +24,13 @@ player.speed(0)
 wn.register_shape('knight.gif')
 player.shape('knight.gif')
 
+icon = turtle.Turtle()
+icon.up()
+icon.speed(0)
+icon.goto(0,0)
+wn.register_shape('logo.gif')
+icon.shape('logo.gif')
+
 drawer = turtle.Turtle()
 drawer.up()
 drawer.speed(0)
@@ -164,23 +171,23 @@ def drawboarders():
 
 def up():
     global player
-    checktriggers()
     player.goto(player.xcor(), player.ycor()+10)
+    checktriggers()
 
 def down():
     global player
-    checktriggers()
     player.goto(player.xcor(), player.ycor()-10)
+    checktriggers()
 
 def right():
     global player
-    checktriggers()
     player.goto(player.xcor()+10, player.ycor())
+    checktriggers()
 
 def left():
     global player
-    checktriggers()
     player.goto(player.xcor()-10, player.ycor())
+    checktriggers()
 
 def on():
     wn.onkey(up, "w")
@@ -193,7 +200,7 @@ def off():
     wn.onkey(None, "s")
     wn.onkey(None, "d")
     wn.onkey(None, "a")
-    wn.onkey(initlevel3, "r")
+    wn.onkey(initlevel1, "r")
 
 def wallcollision():
     global player
@@ -204,6 +211,13 @@ def lava():
 
 def damage():
     global health, level
+    if level == 1:
+        resetlevel1()
+    elif level ==2:
+        resetLevel2()
+    else:
+        resetLevel3()
+
     if health == 3:
         heart3.ht()
     elif health == 2:
@@ -213,13 +227,6 @@ def damage():
     else:
         deathScreen()
     health -= 1
-
-    if level == 1:
-        resetlevel1()
-    elif level ==2:
-        resetLevel2()
-    else:
-        resetLevel3()
 
 def updateGhost():
     global ghost
@@ -241,35 +248,41 @@ def resetScreen(message, command):
     off()
     drawer.clear()
     wn.bgpic("nopic")
-    player.ht()
     ghost.ht()
+    player.ht()
     key1.ht()
     key2.ht()
     key3.ht()
     heart1.ht()
     heart2.ht()
     heart3.ht()
-    drawer.color("red")
-    drawer.goto(-4 * mapscale, 3 * mapscale)
+    icon.st()
+    drawer.color("darkblue")
+    drawer.goto(-7 * mapscale, 5 * mapscale)
     drawer.write(message, font=("Verdana", 50, "normal"))
-    drawer.goto(-4 * mapscale, -3 * mapscale)
+    drawer.goto(-4.5 * mapscale, -6 * mapscale)
+    drawer.color("darkred")
     drawer.write(command, font=("Verdana", 36, "normal"))
     drawer.ht()
 
 def deathScreen():
-    resetScreen("You Died", "Press 'r' to Restart")
+    resetScreen("         You Died", "Press 'R' to Restart")
 
 def startScreen():
-    resetScreen("Medievel Maze Game", "Press 'r' to Begin")
+    off()
+    resetScreen("Medieval Maze Game", "Press 'R' to Begin")
+    drawer.goto(-11 * mapscale, -7 * mapscale)
+    drawer.write("Avoid the Ghost, Avoid the red lava, Collect all keys, Reach the green exit", font=("Verdana", 26, "normal"))
 
 def winScreen():
-    resetScreen("You Win", "Press 'r' to Restart")
+    resetScreen("         You Win", "Press 'R' to Restart")
 
 def levelScreen():
     global health, inventory
     drawer.clear()
     drawboarders()
     wn.bgpic("background.png")
+    icon.ht()
     player.st()
     ghost.st()
     key1.st()
@@ -333,14 +346,14 @@ def initlevel1():
     resetlevel1()
     on()
 def resetlevel1():
-    global mapscale, inventory
-    inventory.clear()
+    global mapscale, inventory, player
+    inventory = []
+    player.goto(-9*mapscale, 7*mapscale)
     key1.goto(8*mapscale, 1*mapscale)
     key2.goto(11*mapscale, 11*mapscale)
     key3.goto(11*mapscale, 11*mapscale)
     key2.ht()
     key3.ht()
-    player.goto(-9*mapscale, 7*mapscale)
     ghost.goto(-9*mapscale,-7*mapscale)
 
 def initlevel2():
@@ -462,7 +475,6 @@ def resetLevel3():
     key3.goto(3*mapscale, -7*mapscale)
     key3.st()
 
-#start main code
 startScreen()
 
 wn.listen()
