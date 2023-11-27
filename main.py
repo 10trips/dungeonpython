@@ -187,7 +187,7 @@ def off():
     wn.onkey(None, "s")
     wn.onkey(None, "d")
     wn.onkey(None, "a")
-    wn.onkey(initlevel1, "r")
+    wn.onkey(initlevel2, "r")
 
 def wallcollision():
     global player
@@ -275,32 +275,40 @@ def initlevel1():
     global mapscale, level
     level = 1
     levelScreen()
-    triggers1.append(trigger(-10,5,2,6,wallcollision,15,True,"black"))
-    triggers1.append(trigger(1,1,2,5,wallcollision,15,True,"black"))
-    triggers1.append(trigger(3,3,4,8,wallcollision,15,True,"black"))
-    triggers1.append(trigger(-3,-1,6,0,wallcollision,15,True,"black"))
-    triggers1.append(trigger(5,0,6,5,wallcollision,15,True,"black"))
-
-    triggers1.append(trigger(8,3,10,8,wallcollision,15,True,"black"))
-
-    triggers1.append(trigger(-9,-5,-8,4,wallcollision,15,True,"black"))
-    triggers1.append(trigger(-10,-1,-9,0,wallcollision,15,True,"black"))
+    triggers1.append(trigger(-10,4,3,5,wallcollision,15,True,"black"))
+    triggers1.append(trigger(-10,-2,-9,-1,wallcollision,15,True,"black"))
+    triggers1.append(trigger(-9,2,-8,3,wallcollision,15,True,"black"))
+    triggers1.append(trigger(-9,-5,-8,1,wallcollision,15,True,"black"))
     triggers1.append(trigger(-7,-8,-6,-4,wallcollision,15,True,"black"))
-    triggers1.append(trigger(-3,-7,-2,-2,wallcollision,15,True,"black"))
+    triggers1.append(trigger(-7,3,-2,4,wallcollision,15,True,"black"))
+    triggers1.append(trigger(-6,-1,-5,2,wallcollision,15,True,"black"))
+    triggers1.append(trigger(-5,-6,-4,-5,wallcollision,15,True,"black"))
+    triggers1.append(trigger(-5,-3,-4,-1,wallcollision,15,True,"black"))
+    triggers1.append(trigger(-5,1,-4,2,wallcollision,15,True,"black"))
+    triggers1.append(trigger(-4,-4,-3,-3,wallcollision,15,True,"black"))
+    triggers1.append(trigger(-3,-3,-2,1,wallcollision,15,True,"black"))
+    triggers1.append(trigger(-3,5,-2,7,wallcollision,15,True,"black"))
+    triggers1.append(trigger(-2,-7,-1,-6,wallcollision,15,True,"black"))
+    triggers1.append(trigger(-2,-5,0,-4,wallcollision,15,True,"black"))
+    triggers1.append(trigger(-2,-2,6,-1,wallcollision,15,True,"black"))
+    triggers1.append(trigger(-1,-4,0,-3,wallcollision,15,True,"black"))
+    triggers1.append(trigger(-1,1,0,3,wallcollision,15,True,"black"))
+    triggers1.append(trigger(-1,6,0,8,wallcollision,15,True,"black"))
+    triggers1.append(trigger(0,-6,7,-5,wallcollision,15,True,"black"))
+    triggers1.append(trigger(0,0,3,1,wallcollision,15,True,"black"))
+    triggers1.append(trigger(2,-4,3,-2,wallcollision,15,True,"black"))
+    triggers1.append(trigger(2,1,3,4,wallcollision,15,True,"black"))
+    triggers1.append(trigger(4,-5,5,-3,wallcollision,15,True,"black"))
+    triggers1.append(trigger(4,2,5,8,wallcollision,15,True,"black"))
+    triggers1.append(trigger(6,0,7,6,wallcollision,15,True,"black"))
+    triggers1.append(trigger(8,2,9,8,wallcollision,15,True,"black"))
+    triggers1.append(trigger(9,-1,10,8,wallcollision,15,True,"black"))
 
-    triggers1.append(trigger(0,-5,8,-4,wallcollision,15,True,"black"))
-    triggers1.append(trigger(3,-6,4,-2,wallcollision,15,True,"black"))
-    #sum lava
-    triggers1.append(trigger(5,-2,10,0,lava,15,True,"orange"))
-
-    triggers1.append(trigger(-1,1,2,2,wallcollision,15,True,"black"))
-
-    triggers1.append(trigger(-1,1,2,2,wallcollision,15,True,"black"))
-    triggers1.append(trigger(5,-2,10,0,lava,15,True,"orange"))# lava
-    triggers1.append(trigger(8,-8,10,-2,finishLevel1,0,True,"green"))# end
+    triggers1.append(trigger(5,-8,7,-6,lava,15,True,"orange"))# lava
+    triggers1.append(trigger(6,-3,10,-1,lava,15,True,"orange"))# lava
+    triggers1.append(trigger(8,-8,10,-4,finishLevel1,0,True,"green"))# end
     resetlevel1()
     on()
-
 def resetlevel1():
     global mapscale, inventory
     inventory.clear()
@@ -311,11 +319,20 @@ def resetlevel1():
     key3.ht()
     player.goto(-9*mapscale, 7*mapscale)
     ghost.goto(-9*mapscale,-7*mapscale)
+
 def initlevel2():
     global level
     level = 2
     levelScreen()
+    resetLevel2()
     on()
+def resetLevel2():
+    ghost.goto(0,0)
+    player.goto(0, 7*mapscale)
+    key1.goto(-6*mapscale, -6*mapscale)
+    key2.goto(3*mapscale, 7*mapscale)
+    key2.st()
+    key3.ht()
     
 #start main code
 startScreen()
