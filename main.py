@@ -17,16 +17,16 @@ ghost.speed(0)
 wn.register_shape('ghost.gif')
 ghost.shape('ghost.gif')
 
-drawer = turtle.Turtle()
-drawer.up()
-drawer.speed(0)
-
 #add player turtle image
 player = turtle.Turtle()
 player.up()
 player.speed(0)
 wn.register_shape('knight.gif')
 player.shape('knight.gif')
+
+drawer = turtle.Turtle()
+drawer.up()
+drawer.speed(0)
 
 key1 = turtle.Turtle()
 key1.up()
@@ -72,7 +72,7 @@ class trigger:
         #color - draw must be true, what color? (red? green? purple?)
         #bufer - defaults to 15 if not given
 
-        global mapscale        
+        global mapscale, drawer        
 
         if others:
             if not others[0]: #buffer
@@ -116,8 +116,6 @@ class trigger:
 
             drawer.end_fill()
         drawer.ht()
-
-            #drawer.ht()
             
     def collision(self):
         
@@ -211,14 +209,6 @@ def damage():
     health -= 1
     resetlevel1()
 
-def gate():
-    global inventory, player, drawer
-    if len(inventory) > 0:
-        inventory.pop(-1)
-        print(inventory)
-    else:
-        player.undo()
-
 def updateGhost():
     global ghost
     ghost.setheading(ghost.towards(player))
@@ -247,16 +237,9 @@ def resetScreen(message, command):
     heart1.ht()
     heart2.ht()
     heart3.ht()
-    for object in triggers1:
-        del object
-    for object in triggers2:
-        del object
-    for object in triggers3:
-        del object
     drawer.color("red")
     drawer.goto(-4 * mapscale, 3 * mapscale)
     drawer.write(message, font=("Verdana", 50, "normal"))
-    #drawer.write("You Died", font=("Verdana", 50, "normal"))
     drawer.goto(-4 * mapscale, -3 * mapscale)
     drawer.write(command, font=("Verdana", 36, "normal"))
     drawer.ht()
@@ -268,12 +251,10 @@ def startScreen():
     resetScreen("Medievel Maze Game", "Press 'r' to Begin")
 
 def winScreen():
-
     resetScreen("You Win", "Press 'r' to Restart")
-    #drawer.write("Press 'r' to Restart", font=("Verdana", 36, "normal"))
 
 def levelScreen():
-    global health
+    global health, inventory
     drawer.clear()
     drawboarders()
     wn.bgpic("background.png")
@@ -283,8 +264,12 @@ def levelScreen():
     key2.st()
     key3.st()
     health = 3
+    inventory = []
     resetHearts()
-    on()
+def finishLevel1():
+    if len(inventory) >= 1:
+        off()
+        initlevel2()
 
 def initlevel1():
     global mapscale, level
@@ -312,10 +297,9 @@ def initlevel1():
 
     triggers1.append(trigger(-1,1,2,2,wallcollision,15,True,"black"))
     triggers1.append(trigger(5,-2,10,0,lava,15,True,"orange"))# lava
-    triggers1.append(trigger(8,-8,10,-2,initlevel2,0,True,"green"))# end
-    triggers1.append(trigger(4,-3,5,-2,gate,0,True,"yellow"))# gate
-
+    triggers1.append(trigger(8,-8,10,-2,finishLevel1,0,True,"green"))# end
     resetlevel1()
+    on()
 
 def resetlevel1():
     global mapscale, inventory
@@ -331,10 +315,10 @@ def initlevel2():
     global level
     level = 2
     levelScreen()
+    on()
     
 #start main code
 startScreen()
-initlevel1()
 
 wn.listen()
 wn.mainloop()
