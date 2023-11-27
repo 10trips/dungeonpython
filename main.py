@@ -142,8 +142,11 @@ def checktriggers():
     if level == 2:
         for t in triggers2:
             t.collision()
+    if level == 3:
+        for t in triggers3:
+            t.collision()
     for key in keys:
-        if player.distance(key) < 20 and key not in inventory:
+        if player.distance(key) < 40 and key not in inventory:
             inventory.append(key)
             key.goto(10*mapscale - mapscale*len(inventory), 9*mapscale)
 
@@ -190,7 +193,7 @@ def off():
     wn.onkey(None, "s")
     wn.onkey(None, "d")
     wn.onkey(None, "a")
-    wn.onkey(initlevel2, "r")
+    wn.onkey(initlevel3, "r")
 
 def wallcollision():
     global player
@@ -200,7 +203,7 @@ def lava():
     damage()
 
 def damage():
-    global health
+    global health, level
     if health == 3:
         heart3.ht()
     elif health == 2:
@@ -210,7 +213,13 @@ def damage():
     else:
         deathScreen()
     health -= 1
-    resetlevel1()
+
+    if level == 1:
+        resetlevel1()
+    elif level ==2:
+        resetLevel2()
+    else:
+        resetLevel3()
 
 def updateGhost():
     global ghost
@@ -390,16 +399,68 @@ def resetLevel2():
     player.goto(0, 7*mapscale)
     key1.goto(-6*mapscale, -6*mapscale)
     key2.goto(3*mapscale, 7*mapscale)
-    key2.st()
     key3.ht()
 
 def initlevel3():
     global level
     level = 3
     levelScreen()
+    triggers3.append(trigger(-10,3,-8,4,wallcollision,15,True,"black"))
+    triggers3.append(trigger(-9,5,-8,6,wallcollision,15,True,"black"))
+    triggers3.append(trigger(-8,0,9,1,wallcollision,15,True,"black"))
+    triggers3.append(trigger(-7,1,-6,5,wallcollision,15,True,"black"))
+    triggers3.append(trigger(-6,7,-5,8,wallcollision,15,True,"black"))
+    triggers3.append(trigger(-5,2,-4,5,wallcollision,15,True,"black"))
+    triggers3.append(trigger(-3,2,-2,6,wallcollision,15,True,"black"))
+    triggers3.append(trigger(-1,1,0,8,wallcollision,15,True,"black")) 
+    triggers3.append(trigger(0,-8,1,-4,wallcollision,15,True,"black"))
+    triggers3.append(trigger(0,-3,1,0,wallcollision,15,True,"black"))
+    triggers3.append(trigger(0,2,1,3,wallcollision,15,True,"black"))
+    triggers3.append(trigger(0,4,3,5,wallcollision,15,True,"black"))
+    triggers3.append(trigger(0,7,1,8,wallcollision,15,True,"black"))
+    triggers3.append(trigger(1,-5,2,-4,wallcollision,15,True,"black"))
+    triggers3.append(trigger(1,-3,2,-2,wallcollision,15,True,"black"))
+    triggers3.append(trigger(1,-1,2,0,wallcollision,15,True,"black"))
+    triggers3.append(trigger(2,2,5,3,wallcollision,15,True,"black"))
+    triggers3.append(trigger(2,6,7,7,wallcollision,15,True,"black"))
+    triggers3.append(trigger(3,-4,4,-1,wallcollision,15,True,"black"))
+    triggers3.append(trigger(4,-2,10,-1,wallcollision,15,True,"black"))
+    triggers3.append(trigger(4,3,5,5,wallcollision,15,True,"black"))
+    triggers3.append(trigger(5,-7,7,-6,wallcollision,15,True,"black"))
+    triggers3.append(trigger(5,4,7,5,wallcollision,15,True,"black"))
+    triggers3.append(trigger(6,-6,7,-3,wallcollision,15,True,"black"))
+    triggers3.append(trigger(6,2,10,3,wallcollision,15,True,"black"))
+    triggers3.append(trigger(7,4,8,6,wallcollision,15,True,"black"))
+    triggers3.append(trigger(8,-7,9,-3,wallcollision,15,True,"black"))
+    triggers3.append(trigger(8,4,10,5,wallcollision,15,True,"black"))
+    triggers3.append(trigger(9,-7,10,-6,wallcollision,15,True,"black"))
     
+    triggers3.append(trigger(-10,-3,-9,-2,lava,15,True,"orange"))# lava
+    triggers3.append(trigger(-9,-6,-8,-5,lava,15,True,"orange"))# lava
+    triggers3.append(trigger(-8,-7,-7,0,lava,15,True,"orange"))# lava
+    triggers3.append(trigger(-6,-6,-4,-5,lava,15,True,"orange"))# lava
+    triggers3.append(trigger(-6,-2,-4,-1,lava,15,True,"orange"))# lava
+    triggers3.append(trigger(-4,-7,-3,-1,lava,15,True,"orange"))# lava
+    triggers3.append(trigger(-3,-4,-2,-3,lava,15,True,"orange"))# lava
+    triggers3.append(trigger(-2,-8,-1,-6,lava,15,True,"orange"))# lava
+    triggers3.append(trigger(-2,-5,-1,-2,lava,15,True,"orange"))# lava
+    triggers3.append(trigger(-2,-1,-1,0,lava,15,True,"orange"))# lava
+    triggers3.append(trigger(1,-8,2,-5,lava,15,True,"orange"))# lava
+    triggers3.append(trigger(3,-6,5,-5,lava,15,True,"orange"))# lava
+    triggers3.append(trigger(4,-7,5,-6,lava,15,True,"orange"))# lava
+
+    triggers3.append(trigger(8,6,10,8,finishLevel3,0,True,"green"))
     resetLevel3()
     on()
+def resetLevel3():
+    global inventory, mapscale
+    inventory = []
+    ghost.goto(0,0)
+    player.goto(-9*mapscale, 7*mapscale)
+    key1.goto(-2*mapscale, 7*mapscale)
+    key2.goto(-5*mapscale, -4*mapscale)
+    key3.goto(3*mapscale, -7*mapscale)
+    key3.st()
 
 #start main code
 startScreen()
