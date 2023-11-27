@@ -139,6 +139,9 @@ def checktriggers():
     if level == 1:
         for t in triggers1:
             t.collision()
+    if level == 2:
+        for t in triggers2:
+            t.collision()
     for key in keys:
         if player.distance(key) < 20 and key not in inventory:
             inventory.append(key)
@@ -266,10 +269,21 @@ def levelScreen():
     health = 3
     inventory = []
     resetHearts()
+
 def finishLevel1():
     if len(inventory) >= 1:
         off()
         initlevel2()
+
+def finishLevel2():
+    if len(inventory) >= 2:
+        off()
+        initlevel3()
+
+def finishLevel3():
+    if len(inventory) >= 3:
+        off()
+        winScreen()
 
 def initlevel1():
     global mapscale, level
@@ -324,16 +338,69 @@ def initlevel2():
     global level
     level = 2
     levelScreen()
+    triggers2.append(trigger(-10,-2,-6,-1,wallcollision,15,True,"black"))
+    triggers2.append(trigger(-9,-8,-8,-6,wallcollision,15,True,"black"))
+    triggers2.append(trigger(-9,-5,-8,-3,wallcollision,15,True,"black"))
+    triggers2.append(trigger(-9,0,-8,5,wallcollision,15,True,"black"))
+    triggers2.append(trigger(-9,6,-5,7,wallcollision,15,True,"black"))
+    triggers2.append(trigger(-8,-4,-5,-3,wallcollision,15,True,"black"))
+    triggers2.append(trigger(-8,0,-3,1,wallcollision,15,True,"black"))
+    triggers2.append(trigger(-6,2,-5,7,wallcollision,15,True,"black"))
+    triggers2.append(trigger(-5,-8,-4,-5,wallcollision,15,True,"black"))
+    triggers2.append(trigger(-5,-3,-4,0,wallcollision,15,True,"black"))
+    triggers2.append(trigger(-5,4,-4,5,wallcollision,15,True,"black"))
+    triggers2.append(trigger(-4,2,-3,4,wallcollision,15,True,"black"))
+    triggers2.append(trigger(-4,6,-2,7,wallcollision,15,True,"black"))
+    triggers2.append(trigger(-3,-6,-2,-4,wallcollision,15,True,"black"))
+    triggers2.append(trigger(-3,-3,-2,-1,wallcollision,15,True,"black"))
+    triggers2.append(trigger(-3,3,-2,4,wallcollision,15,True,"black"))
+    triggers2.append(trigger(-2,-8,-1,-5,wallcollision,15,True,"black"))
+    triggers2.append(trigger(-2,-2,-1,3,wallcollision,15,True,"black"))
+    triggers2.append(trigger(-2,5,-1,8,wallcollision,15,True,"black"))
+    triggers2.append(trigger(-1,-6,0,-5,wallcollision,15,True,"black"))
+    triggers2.append(trigger(-1,-2,3,-1,wallcollision,15,True,"black"))
+    triggers2.append(trigger(-1,2,3,3,wallcollision,15,True,"black"))
+    triggers2.append(trigger(0,-4,1,-2,wallcollision,15,True,"black"))
+    triggers2.append(trigger(1,-8,2,-5,wallcollision,15,True,"black"))
+    triggers2.append(trigger(1,3,2,8,wallcollision,15,True,"black"))
+    triggers2.append(trigger(2,-2,3,3,wallcollision,15,True,"black"))
+
+    triggers2.append(trigger(3,-8,4,-4,lava,15,True,"orange"))# lava
+    triggers2.append(trigger(3,3,4,6,lava,15,True,"orange"))# lava
+    triggers2.append(trigger(4,-3,5,-2,lava,15,True,"orange"))# lava
+    triggers2.append(trigger(4,-1,9,0,lava,15,True,"orange"))# lava
+    triggers2.append(trigger(4,2,5,3,lava,15,True,"orange"))# lava
+    triggers2.append(trigger(5,1,6,3,lava,15,True,"orange"))# lava
+    triggers2.append(trigger(5,4,6,7,lava,15,True,"orange"))# lava
+    triggers2.append(trigger(6,-5,9,-4,lava,15,True,"orange"))# lava
+    triggers2.append(trigger(7,-3,8,-2,lava,15,True,"orange"))# lava
+    triggers2.append(trigger(7,1,9,2,lava,15,True,"orange"))# lava
+    triggers2.append(trigger(7,7,8,8,lava,15,True,"orange"))# lava
+    triggers2.append(trigger(8,2,9,6,lava,15,True,"orange"))# lava
+    triggers2.append(trigger(9,-4,10,-3,lava,15,True,"orange"))# lava
+    
+    triggers2.append(trigger(-1,-8,1,-6,finishLevel2,0,True,"green"))
+
     resetLevel2()
     on()
 def resetLevel2():
+    global inventory, mapscale
+    inventory = []
     ghost.goto(0,0)
     player.goto(0, 7*mapscale)
     key1.goto(-6*mapscale, -6*mapscale)
     key2.goto(3*mapscale, 7*mapscale)
     key2.st()
     key3.ht()
+
+def initlevel3():
+    global level
+    level = 3
+    levelScreen()
     
+    resetLevel3()
+    on()
+
 #start main code
 startScreen()
 
