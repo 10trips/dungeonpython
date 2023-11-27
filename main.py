@@ -24,6 +24,7 @@ player.speed(0)
 wn.register_shape('knight.gif')
 player.shape('knight.gif')
 
+#Add Logo Icon
 icon = turtle.Turtle()
 icon.up()
 icon.speed(0)
@@ -31,10 +32,12 @@ icon.goto(0,0)
 wn.register_shape('logo.gif')
 icon.shape('logo.gif')
 
+#Create the turtle that Draws
 drawer = turtle.Turtle()
 drawer.up()
 drawer.speed(0)
 
+#Create all keys
 key1 = turtle.Turtle()
 key1.up()
 key1.speed(0)
@@ -51,6 +54,7 @@ key1.shape('key.gif')
 key2.shape('key.gif')
 key3.shape('key.gif')
 
+#Create all hearts
 heart1 = turtle.Turtle()
 heart1.up()
 heart1.speed(0)
@@ -142,7 +146,8 @@ def checktriggers():
         player.goto(player.xcor(), 7.6*mapscale)
     if player.ycor() < -7.6*mapscale:
         player.goto(player.xcor(), -7.6*mapscale)
-
+	
+	#Checks trigger colisions based off the current level
     if level == 1:
         for t in triggers1:
             t.collision()
@@ -152,12 +157,14 @@ def checktriggers():
     if level == 3:
         for t in triggers3:
             t.collision()
+            
+    #Check Key colisions and add to hotbar
     for key in keys:
         if player.distance(key) < 40 and key not in inventory:
             inventory.append(key)
             key.goto(10*mapscale - mapscale*len(inventory), 9*mapscale)
 
-def drawboarders():
+def drawboarders():#Draws the outside boarders
     global drawer
     drawer.color("black")
     drawer.goto(-10*mapscale, -8*mapscale)
@@ -168,7 +175,7 @@ def drawboarders():
     drawer.goto(10*mapscale, -8*mapscale)
     drawer.goto(-10*mapscale, -8*mapscale)
     drawer.up()
-
+ #----Movement: Move player then check colisions---
 def up():
     global player
     player.goto(player.xcor(), player.ycor()+10)
@@ -188,6 +195,7 @@ def left():
     global player
     player.goto(player.xcor()-10, player.ycor())
     checktriggers()
+#-------
 
 def on():
     wn.onkey(up, "w")
@@ -202,14 +210,14 @@ def off():
     wn.onkey(None, "a")
     wn.onkey(initlevel1, "r")
 
-def wallcollision():
+def wallcollision():#Funcion that all walls run
     global player
     player.undo()
 
-def lava():
+def lava():#Function for lava triggers
     damage()
 
-def damage():
+def damage(): # resets the level and removes a heart
     global health, level
     if level == 1:
         resetlevel1()
@@ -228,14 +236,14 @@ def damage():
         deathScreen()
     health -= 1
 
-def updateGhost():
+def updateGhost():#Moves the ghost toward player AND checks if it colides with the player
     global ghost
     ghost.setheading(ghost.towards(player))
     ghost.forward(6)
     if ghost.distance(player) < 20:
         damage()
 
-def resetHearts():
+def resetHearts():#Shows all the hearts.
     heart1.goto(-9 *mapscale, 9*mapscale)
     heart2.goto(-8 *mapscale, 9*mapscale)
     heart3.goto(-7 *mapscale, 9*mapscale)
@@ -243,7 +251,7 @@ def resetHearts():
     heart2.st()
     heart3.st()
 
-def resetScreen(message, command):
+def resetScreen(message, command):#Clears the screan and adds text
     global drawer, mapscale, level
     off()
     drawer.clear()
@@ -265,19 +273,19 @@ def resetScreen(message, command):
     drawer.write(command, font=("Verdana", 36, "normal"))
     drawer.ht()
 
-def deathScreen():
+def deathScreen():#reset screen but specific
     resetScreen("         You Died", "Press 'R' to Restart")
 
-def startScreen():
+def startScreen():#reset screen but specific
     off()
     resetScreen("Medieval Maze Game", "Press 'R' to Begin")
     drawer.goto(-11 * mapscale, -7 * mapscale)
     drawer.write("Avoid the Ghost, Avoid the red lava, Collect all keys, Reach the green exit", font=("Verdana", 26, "normal"))
 
-def winScreen():
+def winScreen():#reset screen but specific
     resetScreen("         You Win", "Press 'R' to Restart")
 
-def levelScreen():
+def levelScreen():#Ckears screan and prepares for a level
     global health, inventory
     drawer.clear()
     drawboarders()
@@ -292,6 +300,7 @@ def levelScreen():
     inventory = []
     resetHearts()
 
+#--- Functions for end of level trigger
 def finishLevel1():
     if len(inventory) >= 1:
         off()
@@ -306,8 +315,9 @@ def finishLevel3():
     if len(inventory) >= 3:
         off()
         winScreen()
+#-------
 
-def initlevel1():
+def initlevel1():#Ran once when level begins
     global mapscale, level
     level = 1
     levelScreen()
@@ -345,7 +355,7 @@ def initlevel1():
     triggers1.append(trigger(8,-8,10,-4,finishLevel1,0,True,"green"))# end
     resetlevel1()
     on()
-def resetlevel1():
+def resetlevel1():#Ran every time the player dies
     global mapscale, inventory, player
     inventory = []
     player.goto(-9*mapscale, 7*mapscale)
@@ -356,7 +366,7 @@ def resetlevel1():
     key3.ht()
     ghost.goto(-9*mapscale,-7*mapscale)
 
-def initlevel2():
+def initlevel2():#ran once when level starts
     global level
     level = 2
     levelScreen()
@@ -405,7 +415,7 @@ def initlevel2():
 
     resetLevel2()
     on()
-def resetLevel2():
+def resetLevel2():#ran every time the player dies
     global inventory, mapscale
     inventory = []
     ghost.goto(0,0)
@@ -414,7 +424,7 @@ def resetLevel2():
     key2.goto(3*mapscale, 7*mapscale)
     key3.ht()
 
-def initlevel3():
+def initlevel3():#ran once when level starts
     global level
     level = 3
     levelScreen()
@@ -465,7 +475,7 @@ def initlevel3():
     triggers3.append(trigger(8,6,10,8,finishLevel3,0,True,"green"))
     resetLevel3()
     on()
-def resetLevel3():
+def resetLevel3():#Ran every time player dies
     global inventory, mapscale
     inventory = []
     ghost.goto(0,0)
@@ -474,8 +484,9 @@ def resetLevel3():
     key2.goto(-5*mapscale, -4*mapscale)
     key3.goto(3*mapscale, -7*mapscale)
     key3.st()
+#----- End of functions----
 
-startScreen()
+startScreen()#goes to tittle screen
 
 wn.listen()
 wn.mainloop()
