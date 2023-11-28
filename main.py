@@ -1,4 +1,5 @@
 #created by Ethan Freckleton and Alex Larsen 11/21/2023
+
 import turtle
 
 wn = turtle.Screen()
@@ -73,29 +74,33 @@ heart3.shape('heart.gif')
 
 wn.bgcolor("lightblue")
 
-class trigger:
-    #def __init__(self, x1,y1, x2,y2, fun, draw, color, bufer):
+class trigger: # object class for trigges/walls
+#triggers creates boundaries where if the turtle enters it calls a specified function
+    
     def __init__(self, x1,y1, x2,y2, fun, *others):  
         #x1 and y1 - is bottom left corner of trigger
         #x2 and y2  - is top right corner of trigger
         #fun - is function called when the plr enters the trigger
+
+        #others VV the *others parameters are optional parameters that can be given but not required
+
         #draw - should we draw the  trigger
         #color - draw must be true, what color? (red? green? purple?)
         #bufer - defaults to 15 if not given
 
         global mapscale, drawer        
 
-        if others:
+        if others: #defaults values if they're not given
             if not others[0]: #buffer
                 self.bufer = 15
             else:
                 self.bufer = others[0]     
-            if others[1] == True:
+            if others[1] == True: # draw
                 
                 self.draw = True
             else:
                 self.draw = False
-            if not others[2]:
+            if not others[2]: # color
                 self.color = "black"
             else:
                 self.color = others[2]    
@@ -112,7 +117,7 @@ class trigger:
         self.fun = fun
         
 
-        if self.draw == True:
+        if self.draw == True: #render the box
             drawer.st()
             drawer.goto(self.x1,self.y2)
         
@@ -128,10 +133,10 @@ class trigger:
             drawer.end_fill()
         drawer.ht()
             
-    def collision(self):
+    def collision(self): # collision function for the box
         
         if ((player.xcor() > self.x1-self.bufer) and (player.xcor() < self.x2+self.bufer) and (player.ycor() > self.y1-self.bufer) and (player.ycor() < self.y2+self.bufer)):
-            self.fun()
+            self.fun() #call the function if the player is in the box
 
 def checktriggers():
     global level,triggers1,triggers2,triggers3, player, keys, inventory
